@@ -62,7 +62,7 @@ h1{
 	box-sizing: border-box;
 }
 
-.barrra 
+.barra 
 {
 	z-index: 200;    
     background: #fff;
@@ -92,4 +92,100 @@ h1{
 .barra-menu {
 	width: 250px;
 	height: 100%;
+	background-color: #2b323a;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: width .3s linear;
+	-o-transition: width .3s linear;
+	transition: width .3s linear;
+}
+
+.topo {
+	top: 0;
+	left: 0;
+}
+
+
+.barra-topo {
+	width: 100%;
+	height: 50px;
+	z-index: 198;
+	padding-left: 0;
+	-webkit-transition: all .3s linear;
+	-o-transition: all .3s linear;
+	transition: all .3s linear;
+
+}
+
+.aberto .barra-topo 
+{
+	padding-left: 250px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s linear;
+	-o-transition: all .3s linear;
+	transition: all .3s linear;
+}
+
+
+.barra .titulo {
+	display: inline-block;
+	width: 100%;
+	padding: 8px 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-weight: border;
+	color: #fff;
+	font-size: 2em;
+	margin-bottom: 10px;
+}
+
+.barra .content {
+	display: inline-block;
+}
+
+.menu li {
+	list-style: none;
+	padding: 5px 0px;
+}
+
+.menu a {
+	text-decoration: none;
+	color: #fff;
+}
+
+/*HELP'S*/
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+
+
+
+@media (max-width:500px){
+	.barra-menu {
+		width: 50px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		-webkit-transition: width .3s linear;
+		-o-transition: width .3s linear;
+		transition: width .3s linear;
+	}
+
+	.menu span{
+		display: none;
+	}
 }
