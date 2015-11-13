@@ -11,3 +11,13 @@ window.addEventListener('contextmenu', function (e) {
   e.preventDefault();
   menu.popup(remote.getCurrentWindow());
 }, false);
+
+
+window.$ = window.jQuery = require('./assets/js/jquery');
+
+$(function(){
+	$("body").on("click",".btn-menu",function(e){
+		e.preventDefault();
+		$("body").toggleClass("aberto");
+	})
+})
