@@ -6,6 +6,8 @@ var MenuItem = remote.require('menu-item');
 var dialog   = remote.require('dialog'); 
 window.$     = window.jQuery = require('./assets/js/jquery');
 
+var fs = require("fs");
+
 var sys = require('sys');
 var exec = require('child_process').exec;
 
@@ -17,9 +19,13 @@ function puts(error, stdout, stderr) {
 var git      = require("./modulos/git");
 
 var menu = new Menu();
-	menu.append(new MenuItem({ label: 'MenuItem1', click: function() { console.log('item 1 clicked'); } }));
+	
 	menu.append(new MenuItem({ type: 'separator' }));
-	menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
+	menu.append(new MenuItem({ label: 'Sobre', click: function(){
+				dialog.showMessageBox({ title: "Opa!", detail: "Mensagem" ,message: "Codigos por:\n\n\n DanCassiano", type: 'question', buttons: ["OK"] } )
+			}
+		})
+	);
 
 window.addEventListener('contextmenu', function (e) {
   	e.preventDefault();
@@ -30,10 +36,10 @@ window.addEventListener('contextmenu', function (e) {
 $(function(){
 	$("body").on("click",".btn-menu",function(e){
 		e.preventDefault();
-		$("body").toggleClass("aberto");
-		$(".titulo").toggle();	
-		
-		git.status(function(r){			
+		$("body").toggleClass("aberto");		
+	})	
+
+	git.status(function(r){			
 
 			r = r.split('\n');
 			html = "";
@@ -61,5 +67,9 @@ $(function(){
 			$(".list").html( html );
 
 		})
-	})	
+
+	
+	fs.readdir("../", function(err, files){
+  		console.log(files);
+	});
 })

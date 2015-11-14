@@ -156,6 +156,7 @@ h1{
 	box-sizing: border-box;
 }
 
+
 .content-text {
 	padding-top: 60px;
 	padding-left: 60px;
@@ -167,7 +168,7 @@ h1{
 
 
 .barra .titulo {
-	display: inline-block;
+	display: none;
 	width: 100%;
 	padding: 8px 5px;
 	-webkit-box-sizing: border-box;
@@ -179,6 +180,13 @@ h1{
 	margin-bottom: 10px;
 	text-align: center;
 }
+
+
+.aberto .barra .titulo {
+	display: inline-block;
+}
+
+
 
 .barra .content {
 	display: inline-block;
