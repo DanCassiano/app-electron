@@ -5,17 +5,15 @@ var Menu 	 = remote.require('menu');
 var MenuItem = remote.require('menu-item');
 var dialog   = remote.require('dialog'); 
 window.$     = window.jQuery = require('./assets/js/jquery');
-
-var fs = require("fs");
-
-var sys = require('sys');
-var exec = require('child_process').exec;
+var fs 		 = require("fs");
+var sys 	 = require('sys');
+var exec 	 = require('child_process').exec;
+var config 	 = require('./modulos/arquivo');
 
 function puts(error, stdout, stderr) { 
 	sys.puts(stdout) 
 	console.log( stdout )
 }
-
 var git      = require("./modulos/git");
 
 var menu = new Menu();
@@ -34,24 +32,68 @@ window.addEventListener('contextmenu', function (e) {
 
 
 $(function(){
-	$("body").on("click",".btn-menu",function(e){
-		e.preventDefault();
-		$("body").toggleClass("aberto");		
-	})	
 
+	$("body")
+		.on("click",".btn-menu",function(e){
+			e.preventDefault();
+			$("body").toggleClass("aberto");		
+		})
+		.on("click","#inputTodos",function(){
+			if( $(this).prop("checked") == true ) {
+				$(".check-file").prop("checked",true)
+				$(".card-form").show();
+			}
+			else
+				$(".check-file").prop("checked",false)
+		})
+
+	cerragaRepo();
+
+	$("#repoAtuais").on("click","li a",function(e){
+		e.preventDefault();
+		status( $(this).attr("href") );
+	});
+})
+
+function cerragaRepo()
+{
+	var html = "";
+
+	$.each(config.getConfig()['projetos'],function(i,v){
+		
+		$.each(v,function(d,e){
+			html += "<li><a href='"+e+"'>"+d+"</a></li>";
+		})
+	});
+	$("#repoAtuais").html( html )
+
+}
+
+function status( local ){
+
+	git.dir = local;
 	git.status(function(r){			
 
-			r = r.split('\n');
-			html = "";
-			arrayReplace =  { "M ": "zmdi-flip-to-back", "??": "zmdi-chart-donut" };
-			$.each(r,function(i,v){
-				v = v.trim();
-				if( v != "" ) {
+		r = r.split('\n');
+		arrayReplace =  { "M ": "zmdi-flip-to-back", "??": "zmdi-chart-donut" };
+		
+		html = '<li class="tile ui-sortable-handle">'+
+					'<a class="tile-content ink-reaction">'+
+						'<div class="tile-icon">'+
+							'<input type="checkbox" id="inputTodos">'+									
+						'</div>'+
+						'<div class="tile-text text-left"></div>'+
+					'</a>'+
+				'</li>';
+
+		$.each(r,function(i,v){
+			v = v.trim();
+			if( v != "" ) {
 				
 				html += '<li class="tile ui-sortable-handle">'+
 							'<a class="tile-content ink-reaction">'+
 								'<div class="tile-icon">'+
-									'<input type="checkbox">'+									
+									'<input type="checkbox" class="check-file">'+									
 								'</div>'+
 								'<div class="tile-text text-left">'+
 									v.replace(/M |\?\?/gi,'') +
@@ -62,14 +104,7 @@ $(function(){
 							'</a>'+
 						'</li>';
 				}
-			});
-
-			$(".list").html( html );
-
-		})
-
-	
-	fs.readdir("../", function(err, files){
-  		console.log(files);
-	});
-})
+		});
+		$(".list").html( html );
+	})
+}

@@ -1,9 +1,11 @@
 
 
+exports.dir = "";
 
 exports.status  = function( retorno ){
-	exec('git status -s',function(error, stdout, stderr){
-		retorno(stdout);
+	
+	exec( 'cd ' + this.dir + '\n git status -s',function(error, stdout, stderr){
+		retorno(stdout);		
 	});	
 }
 

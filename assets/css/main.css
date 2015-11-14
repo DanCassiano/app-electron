@@ -232,6 +232,22 @@ h1{
 }
 
 
+.content-lateral .zmdi {
+	color: #fff;
+}
+
+#repoAtuais {
+	margin-top: 5px;
+	border-top: 1px solid #fff;
+	color: #fff;
+}
+
+
+.content-repo a{
+	display: inline-block;
+	padding: 5px 10px;
+}
+
 
 .row,
 .col {
@@ -304,6 +320,26 @@ h1{
  
 .col-12 {
   width: 100%;
+}
+
+.card-form {
+	display: none;
+}
+
+.card-form input,
+.card-form textarea  {
+	width: 100%;
+}
+
+.card-form input:focus,
+.card-form textarea:focus {
+	border: none;
+
+}
+
+.card-form textarea {
+	resize:none;
+	height: 200px;
 }
 
 @media (max-width:500px){
