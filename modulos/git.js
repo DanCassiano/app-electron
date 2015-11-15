@@ -9,4 +9,17 @@ exports.status  = function( retorno ){
 	});	
 }
 
+exports.add = function( arquivo, retorno ){
+		sys.puts(arquivo) 
+	exec( 'cd ' + this.dir + '\n git add '+ arquivo ,function(error, stdout, stderr){
+		retorno(stdout);		
+	});	
+}
+
+exports.commit = function( titulo, msg, retorno ){
+	exec( 'cd ' + this.dir + '\n git commit -m '+ titulo + "\s\n" + msg ,function(error, stdout, stderr){
+		retorno(stdout);		
+	});		
+}
+
 
