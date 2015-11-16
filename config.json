@@ -1,3 +1,4 @@
 {
-	"projetos":[{ "Egit": "/var/www/egit/"  },{ "Html": "/var/www/html/"  }]
+	"projetos":[{ "Egit": "/var/www/egit/"  },{ "Html": "/var/www/html/"  }],
+	"usuario":["DanCassiano","jordan_gnr@hotmail.com"]
 }

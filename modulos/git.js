@@ -17,8 +17,10 @@ exports.add = function( arquivo, retorno ){
 }
 
 exports.commit = function( titulo, msg, retorno ){
-	exec( 'cd ' + this.dir + '\n git commit -m '+ titulo + "\s\n" + msg ,function(error, stdout, stderr){
-		retorno(stdout);		
+	exec( 'cd ' + this.dir + '\n git commit -m "'+ titulo + '\s\n' + msg + '"' ,function(error, stdout, stderr){
+		retorno(stdout);	
+		sys.puts(error) 
+
 	});		
 }
 

@@ -43,16 +43,37 @@ $(function(){
 				$(".check-file").prop("checked",true)
 				$(".card-form").show();
 			}
-			else
+			else{
 				$(".check-file").prop("checked",false)
+				$(".card-form").hide();
+			}
+		})
+		.on("click","#btnAdicionarArquivos",function(){			
+			$("input.check-file:checked").each(function(i,v){
+
+				git.add( $(v).val(), function(r){
+					console.log( r )
+				});
+			})
+		})
+		.on("click","#btnComitar",function(e){
+			e.preventDefault()
+			var titulo = $("#inputTitulo").val(),
+				msg    = $("#txtMsg").val();
+
+				git.commit(titulo, msg, function(r){
+					console.log(r)
+				})
 		})
 
 	cerragaRepo();
 
-	$("#repoAtuais").on("click","li a",function(e){
-		e.preventDefault();
-		status( $(this).attr("href") );
-	});
+	$("#repoAtuais")
+		.on("click","li a",function(e){
+			e.preventDefault();
+			status( $(this).attr("href") );
+			$(this).addClass("ativo");
+		});
 })
 
 function cerragaRepo()
@@ -75,7 +96,7 @@ function status( local ){
 	git.status(function(r){			
 
 		r = r.split('\n');
-		arrayReplace =  { "M ": "zmdi-flip-to-back", "??": "zmdi-chart-donut" };
+		arrayReplace =  { "M ": "zmdi-flip-to-back", "??": "zmdi-chart-donut", " M":"zmdi-comment-more" };
 		
 		html = '<li class="tile ui-sortable-handle">'+
 					'<a class="tile-content ink-reaction">'+
@@ -87,16 +108,17 @@ function status( local ){
 				'</li>';
 
 		$.each(r,function(i,v){
-			v = v.trim();
+			// v = v.trim();
 			if( v != "" ) {
-				
+				arquivo = v.replace(/M |\?\?/gi,'');
+
 				html += '<li class="tile ui-sortable-handle">'+
 							'<a class="tile-content ink-reaction">'+
 								'<div class="tile-icon">'+
-									'<input type="checkbox" class="check-file">'+									
+									'<input type="checkbox" class="check-file" value="'+ arquivo +'" >'+									
 								'</div>'+
 								'<div class="tile-text text-left">'+
-									v.replace(/M |\?\?/gi,'') +
+									arquivo +
 								'</div>'+
 								'<div class="tile-icon">'+
 									'<i class="zmdi ' + arrayReplace[ v.substr(0,2) ] +	'" ></i>'+

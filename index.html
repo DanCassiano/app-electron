@@ -2,9 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Olá Mundo</title>
+		<title>App-electron</title>
 		<link rel="stylesheet" href="assets/css/material-design-iconic-font.min.css"> 		
 		<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="assets/css/bootstrap.css">
 		<link rel="stylesheet" href="assets/css/material.css">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	</head>
@@ -29,27 +30,35 @@
 		<div class="content-text">
  			<div class="col col-6">
 				<div class="card">
+					<div class="card-head">			
+						<header>Arquivos</header>
+					</div>
 					<div class="card-body no-padding">
 						<ul class="list divider-full-bleed"></ul>
 					</div>
+					<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<button class="btn btn-primary " id="btnAdicionarArquivos" >Adicionar</button>
+							</div>
+						</div>
 				</div>
 			</div>
 			<div class="col col-5">
 				<div class="card card-form">
 					<div class="card-body">
-						<form class="form">
+						<!-- <form class="form"> -->
 							<div class="form-group">
-								<input type="text" class="form-control" id="regular1">
-								<label for="regular1">Titulo</label>
+								<input type="text" class="form-control" id="inputTitulo">
+								<label for="inputTitulo">Titulo</label>
 							</div>							
 							<div class="form-group">
-								<textarea name="textarea1" id="textarea1" class="form-control" rows="5" placeholder=""></textarea>
-								<label for="textarea1">Mensagem</label>
+								<textarea name="txtMsg" id="txtMsg" class="form-control" rows="5" placeholder=""></textarea>
+								<label for="txtMsg">Mensagem</label>
 							</div>
 							<div class="text-right">
-								<button class='btn btn-default'>Comitar</button>
+								<button class='btn btn-default' id="btnComitar" >Comitar</button>
 							</div>								
-						</form>
+						<!-- </form> -->
 					</div>
 				</div>
 			</div>
