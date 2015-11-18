@@ -342,6 +342,17 @@ h1{
 	height: 200px;
 }
 
+.drop-branch {
+	margin-right: 10px;
+	margin-top: 10px;
+	display: inline-block;	
+}
+
+.titulo-texto {
+	font-weight: bold;
+	font-size: 1em;
+}
+
 @media (max-width:500px){
 	.barra-menu {
 		width: 50px;

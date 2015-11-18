@@ -9,12 +9,12 @@ var fs 		 = require("fs");
 var sys 	 = require('sys');
 var exec 	 = require('child_process').exec;
 var config 	 = require('./modulos/arquivo');
+var git      = require("./modulos/git");
 
 function puts(error, stdout, stderr) { 
 	sys.puts(stdout) 
 	console.log( stdout )
 }
-var git      = require("./modulos/git");
 
 var menu = new Menu();
 	
@@ -32,6 +32,7 @@ window.addEventListener('contextmenu', function (e) {
 
 
 $(function(){
+
 
 	$("body")
 		.on("click",".btn-menu",function(e){
@@ -74,6 +75,8 @@ $(function(){
 			status( $(this).attr("href") );
 			$(this).addClass("ativo");
 		});
+
+
 })
 
 function cerragaRepo()
@@ -86,8 +89,32 @@ function cerragaRepo()
 			html += "<li><a href='"+e+"'>"+d+"</a></li>";
 		})
 	});
-	$("#repoAtuais").html( html )
+	
+	$("#repoAtuais").html( html );
 
+	//pegando o primeiro repositorio
+	git.dir =$("#repoAtuais li:first-child a").attr("href");
+	
+	// git.gitListContribuidores(function(r){
+	// 	console.log(r)
+	// })
+
+	git.listaBranch(function(r){
+			console.log( r)
+			var b = r,
+				html = "";
+			$.each(b,function(i,v){
+				var atual = "";
+				if( v.charAt(0) == "*"){
+					atual = "disabled";
+					$("#dLabel").html(v.replace("*","")+ "<span class='caret'></span>")
+				}
+
+				html += "<li class='"+atual+"'><a href='#'>"+ v.replace("*","") +"</a></li>";
+			})
+		$("#listaBranchs").html( html )
+		$("#tituloRepo").html( $("#repoAtuais li:first-child a").text() )
+	})
 }
 
 function status( local ){

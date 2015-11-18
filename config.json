@@ -1,4 +1,4 @@
 {
-	"projetos":[{ "App": "/var/www/egit/"  },{ "Html": "/var/www/html/"  }],
+	"projetos":[ { "App-electron": "/home/dan/Área de Trabalho/app-electron/app/" },{ "App": "/var/www/egit/"  },{ "Html": "/var/www/html/"  }],
 	"usuario":["DanCassiano","jordan_gnr@hotmail.com"]
 }
