@@ -19,17 +19,17 @@ exports.add = function( arquivo, retorno ){
 exports.commit = function( titulo, msg, retorno ){
 	exec(' git commit -m "'+ titulo + '\s\n' + msg + '"' ,{ cwd: this.dir},function(error, stdout, stderr){
 		retorno(stdout);	
-		sys.puts(error) 
+		// sys.puts(error) 
 	});		
 }
 
 
 exports.gitListContribuidores = function(retorno ){
 	
-	exec( 'git log --pretty=format:%an' ,{ cwd: this.dir},function(error, stdout, stderr){
+	exec( 'git shortlog -s' ,{ cwd: this.dir},function(error, stdout, stderr){
 		retorno(stdout);	
-		puts( error, stdout, stderr );
-		console.log( error, stdout, stderr)
+		// puts( error, stdout, stderr );
+		// console.log( error, stdout, stderr)
 	});		
 }
 
@@ -37,8 +37,7 @@ exports.gitListContribuidores = function(retorno ){
 exports.branchAtual = function(retorno){
 	exec( 'git branch' ,{ cwd: this.dir},function(error, stdout, stderr){
 		retorno(stdout);	
-		puts( error, stdout, stderr );
-		console.log( error, stdout, stderr)
+		// puts( error, stdout, stderr );		
 	});	
 }
 

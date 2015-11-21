@@ -6,6 +6,7 @@ var MenuItem = remote.require('menu-item');
 var dialog   = remote.require('dialog'); 
 window.$     = window.jQuery = require('./assets/js/jquery');
 var fs 		 = require("fs");
+var path 	 = require("path");
 var sys 	 = require('sys');
 var exec 	 = require('child_process').exec;
 var config 	 = require('./modulos/arquivo');
@@ -13,7 +14,7 @@ var git      = require("./modulos/git");
 
 function puts(error, stdout, stderr) { 
 	sys.puts(stdout) 
-	console.log( stdout )
+	// console.log( stdout )
 }
 
 var menu = new Menu();
@@ -53,7 +54,7 @@ $(function(){
 			$("input.check-file:checked").each(function(i,v){
 
 				git.add( $(v).val(), function(r){
-					console.log( r )
+					// console.log( r )
 				});
 			})
 		})
@@ -63,7 +64,7 @@ $(function(){
 				msg    = $("#txtMsg").val();
 
 				git.commit(titulo, msg, function(r){
-					console.log(r)
+					// console.log(r)
 				})
 		})
 
@@ -93,14 +94,10 @@ function cerragaRepo()
 	$("#repoAtuais").html( html );
 
 	//pegando o primeiro repositorio
-	git.dir =$("#repoAtuais li:first-child a").attr("href");
-	
-	// git.gitListContribuidores(function(r){
-	// 	console.log(r)
-	// })
+	git.dir =$("#repoAtuais li:first-child a").attr("href");	
 
 	git.listaBranch(function(r){
-			console.log( r)
+			// console.log( r)
 			var b = r,
 				html = "";
 			$.each(b,function(i,v){
@@ -114,7 +111,9 @@ function cerragaRepo()
 			})
 		$("#listaBranchs").html( html )
 		$("#tituloRepo").html( $("#repoAtuais li:first-child a").text() )
-	})
+	});
+
+	carregaOrigin( git.dir );
 }
 
 function status( local ){
@@ -135,11 +134,11 @@ function status( local ){
 				'</li>';
 
 		$.each(r,function(i,v){
-			// v = v.trim();
+			
 			if( v != "" ) {
 				arquivo = v.replace(/M |\?\?/gi,'');
 
-				html += '<li class="tile ui-sortable-handle">'+
+				html += '<li class="tile ">'+
 							'<a class="tile-content ink-reaction">'+
 								'<div class="tile-icon">'+
 									'<input type="checkbox" class="check-file" value="'+ arquivo +'" >'+									
@@ -154,6 +153,39 @@ function status( local ){
 						'</li>';
 				}
 		});
-		$(".list").html( html );
+		$("#listaArquivosGit").html( html );
 	})
+}
+
+function carregaOrigin( repo )
+{
+	var html     = "";
+		arquivos = [];
+		pastas   = [];
+		a = [];
+
+	config.getOrigin( repo,function(r){		
+
+		var icone = "<i class='zmdi zmdi-file'></i>";
+		
+		if( path.basename(r)!= ".git") {		
+
+			if( path.extname(r ) == "" )
+				icone = "<i class='zmdi zmdi-folder-star'></i>";			
+
+			$("#listaOrigin")
+				.append( "<li class='tile '>"+
+							"<a class='tile-content ink-reaction'>"+
+								"<div class='tile-icon'>"+
+									icone+
+								"</div>"+
+								"<div class='tile-text text-left'>"+ 
+									path.basename(r)+
+								"</div>"+
+							"</a>"+
+						"</li>" );
+		}
+			
+	});
+		
 }
