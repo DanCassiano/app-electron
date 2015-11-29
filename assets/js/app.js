@@ -11,10 +11,11 @@ var sys 	 = require('sys');
 var exec 	 = require('child_process').exec;
 var config 	 = require('./modulos/arquivo');
 var git      = require("./modulos/git");
+require('./assets/js/ace/ace')
+
 
 function puts(error, stdout, stderr) { 
-	sys.puts(stdout) 
-	// console.log( stdout )
+	sys.puts(stdout) 	
 }
 
 var menu = new Menu();
@@ -77,6 +78,15 @@ $(function(){
 			$(this).addClass("ativo");
 		});
 
+    	$("#editor").html( fs.readFileSync("app.js", 'utf8') )
+	var editor = ace.edit("editor");
+		ace.config.set('basePath', './assets/js/ace/');
+		editor.getSession().setUseWorker(false);
+	 	editor.setTheme("ace/theme/monokai");
+    	editor.session.setMode("ace/theme/javascript");
+
+    	
+
 
 })
 
@@ -113,7 +123,7 @@ function cerragaRepo()
 		$("#tituloRepo").html( $("#repoAtuais li:first-child a").text() )
 	});
 
-	carregaOrigin( git.dir );
+	// carregaOrigin( git.dir );
 }
 
 function status( local ){
