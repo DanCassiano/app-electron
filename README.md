@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/DanCassiano/app-electron.png?label=ready&title=Ready)](https://waffle.io/DanCassiano/app-electron)
 # app-electron
 
 #Estudo do Electron
